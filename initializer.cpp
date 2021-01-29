@@ -14,6 +14,11 @@ Initializer::~Initializer()
   m_handlerThread.quit();
 }
 
+/*!
+ * \brief Initializer::start
+ * Create a thread in a safe mode (signal-slot start) where DataHandler is running.
+ * Populate a QList of VierewIf objectes input to the MainWindow.
+ */
 void Initializer::start()
 {
     m_dataHandler = new DataHandler();

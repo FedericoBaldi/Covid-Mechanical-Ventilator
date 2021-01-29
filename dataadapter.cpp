@@ -6,7 +6,7 @@ const char * DataAdapter::m_dataNameList[] =
   DATANAME_X
   #undef X
 };
-//PRESENTER
+//PRESENTER it is called "Adapter" because work as a collector of data and provides function to access them.
 DataAdapter::DataAdapter(DataHandler *dataHandler, QObject *parent) :
   QObject(parent),
   m_dataHandler(dataHandler)
@@ -16,6 +16,12 @@ DataAdapter::DataAdapter(DataHandler *dataHandler, QObject *parent) :
   assert(connectionOk);
 }
 
+/*!
+ * \brief DataAdapter::getData
+ * Ask for current data and parse them to return the asked one.
+ * \param dataName X_Macro enum that binds data to it.
+ * \return description name data.
+ */
 float DataAdapter::getData(eDataName dataName)
 {
   float result = 0;

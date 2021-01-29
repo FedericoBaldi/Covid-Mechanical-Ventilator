@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+//By buttons we control the stacked widget current View.
 void MainWindow::on_ButtonLeft_clicked()
 {
   int currentIndex = ui->ShowStackedWidget->currentIndex();
