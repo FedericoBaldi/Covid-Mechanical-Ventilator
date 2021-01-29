@@ -10,20 +10,20 @@
 
 class Initializer : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    explicit Initializer(QObject *parent = nullptr);
-    ~ Initializer();
-    void start();
+  explicit Initializer(QObject *parent = nullptr);
+  ~ Initializer();
+  void start();
 private:
-    QThread m_handlerThread;
-    DataHandler *m_dataHandler;
-    DataAdapter *m_dataAdapater;
-    MainWindow *m_mainWindow;
-    QList<ViewIf *> m_viewList;
+  QThread m_handlerThread;
+  DataHandler *m_dataHandler;
+  DataAdapter *m_dataAdapater;
+  MainWindow *m_mainWindow;
+  QList<ViewIf *> m_viewList;
 
 signals:
-    void dataHandlerSetUp_signal();
+  void dataHandlerSetUp_signal();
 };
 
 #endif // INITIALIZER_H

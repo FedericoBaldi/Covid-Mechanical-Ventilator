@@ -11,20 +11,20 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    MainWindow(DataAdapter *dataAdapter, QList<ViewIf *> viewList, QWidget *parent = nullptr);
-    ~MainWindow();
+  MainWindow(DataAdapter *dataAdapter, QList<ViewIf *> viewList, QWidget *parent = nullptr);
+  ~MainWindow();
 
 private slots:
-    void on_ButtonLeft_clicked();
-    void on_ButtonRigth_clicked();
-    void refresh();
+  void on_ButtonLeft_clicked();
+  void on_ButtonRigth_clicked();
+  void refresh();
 
 private:
-    Ui::MainWindow *ui;
-    DataAdapter *m_dataAdapter;
-    QList<ViewIf *> m_viewList;
+  Ui::MainWindow *ui;
+  DataAdapter *m_dataAdapter;
+  QList<ViewIf *> m_viewList;
 };
 #endif // MAINWINDOW_H
