@@ -64,5 +64,8 @@ void DataHandler::processLine(QString line)
 {
   QStringList lSplit;
   lSplit = line.split(" ");
-  m_dataList.append(qMakePair(lSplit.first(), lSplit.at(1).toFloat()));
+  if (lSplit.size() == 2) //protection for DataStream file misalignment
+  {
+    m_dataList.append(qMakePair(lSplit.first(), lSplit.at(1).toFloat()));
+  }
 }
