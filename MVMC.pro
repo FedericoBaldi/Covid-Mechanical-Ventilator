@@ -1,6 +1,6 @@
 QT       += core gui charts
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -24,7 +24,11 @@ SOURCES += \
     initializer.cpp \
     main.cpp \
     mainwindow.cpp \
-    viewif.cpp
+    viewif.cpp \
+    GUI/Components/qcustomplot.cpp \
+    GUI/Components/plotAxis/axistag.cpp \
+    GUI/Components/plotAxis/plotaxis.cpp
+
 
 HEADERS += \
     GUI/Components/maindisplay.h \
@@ -34,13 +38,17 @@ HEADERS += \
     datahandler.h \
     initializer.h \
     mainwindow.h \
-    viewif.h
+    viewif.h \
+    GUI/Components/qcustomplot.h \
+    GUI/Components/plotAxis/axistag.h \
+    GUI/Components/plotAxis/plotaxis.h
 
 FORMS += \
     GUI/Components/maindisplay.ui \
     GUI/Components/maindisplayclone.ui \
     GUI/Components/monitor.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    GUI/Components/plotAxis/plotaxis.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
