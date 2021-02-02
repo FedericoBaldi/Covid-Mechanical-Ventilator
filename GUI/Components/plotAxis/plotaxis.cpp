@@ -37,8 +37,11 @@ PlotAxis::PlotAxis(QWidget *parent) :
   
   mPlot = new QCustomPlot(this);
 
+  ui->layout->addWidget(mPlot);
+
   // configure plot to have two right axes:
   mPlot->yAxis->setTickLabels(false);
+  mPlot->xAxis->setTickLabels(false);
   connect(mPlot->yAxis2, SIGNAL(rangeChanged(QCPRange)), mPlot->yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
   mPlot->yAxis2->setVisible(true);
   mPlot->axisRect()->addAxis(QCPAxis::atRight);

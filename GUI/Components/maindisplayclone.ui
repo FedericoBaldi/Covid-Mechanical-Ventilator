@@ -121,19 +121,14 @@
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
+        <layout class="QVBoxLayout" name="graphLayout">
+         <property name="spacing">
+          <number>0</number>
          </property>
-         <property name="styleSheet">
-          <string notr="true">color:white;</string>
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
          </property>
-         <property name="text">
-          <string>Plots 2</string>
-         </property>
-        </widget>
+        </layout>
        </item>
       </layout>
      </widget>

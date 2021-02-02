@@ -5,6 +5,7 @@
 #include "dataadapter.h"
 #include "viewif.h"
 #include "monitor.h"
+#include "plotAxis/plotaxis.h"
 
 namespace Ui {
 class MainDisplayClone;
@@ -23,6 +24,7 @@ private:
   Ui::MainDisplayClone *ui;
   DataAdapter *m_dataAdapter;
   QList <Monitor*> m_monitorsList;
+  PlotAxis * m_plotAxis;
 };
 
 #endif // MAINDISPLAYCLONE_H
