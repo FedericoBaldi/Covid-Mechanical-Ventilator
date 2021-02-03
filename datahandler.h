@@ -13,7 +13,7 @@ public:
 private:
   QTimer *m_dataTimer;
   QList<QPair<QString, float>> m_dataList;
-  void processLine(QString line);
+  QPair<QString, float> processLine(QString line);
   static const int TIMER_TIME;
 
 signals:

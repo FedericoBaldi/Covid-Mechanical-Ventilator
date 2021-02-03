@@ -43,13 +43,14 @@ void DataHandler::refreshData_slot()
   if (file.open(QIODevice::ReadOnly | QIODevice::Text))
   {
     QTextStream in(&file);
-    m_dataList.clear();
+    QList<QPair<QString, float>> dataList;
     while (!in.atEnd())
     {
       QString line = in.readLine();
-      processLine(line);
+      dataList.append(processLine(line));
     }
     file.close();
+    m_dataList = dataList;
     emit dataChanged(); //notify that there are new data availables
   }
   m_dataTimer->start(TIMER_TIME);
@@ -60,12 +61,14 @@ void DataHandler::refreshData_slot()
  * Receive a line and simply split names and values. Does a first float conversion.
  * \param line QString input line
  */
-void DataHandler::processLine(QString line)
+QPair<QString, float> DataHandler::processLine(QString line)
 {
   QStringList lSplit;
   lSplit = line.split(" ");
+  QPair<QString, float> processedLine;
   if (lSplit.size() == 2) //protection for DataStream file misalignment
   {
-    m_dataList.append(qMakePair(lSplit.first(), lSplit.at(1).toFloat()));
+    return qMakePair(lSplit.first(), lSplit.at(1).toFloat());
   }
+  return processedLine;
 }
