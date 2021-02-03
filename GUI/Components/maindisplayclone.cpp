@@ -25,7 +25,11 @@ MainDisplayClone::MainDisplayClone(DataAdapter *dataAdapater, QWidget *parent) :
   m_monitorsList.append(new Monitor(m_dataAdapter, dnO2));
   ui->monitors_slots->addWidget(m_monitorsList.last());
 
-  m_plotAxis = new PlotAxis();
+  QList<eDataName> dataNameList;
+  dataNameList.append(dnPressure);
+  dataNameList.append(dnTidal);
+  //dataNameList.append(dnFlow);
+  m_plotAxis = new PlotAxis(m_dataAdapter, dataNameList);
   ui->graphLayout->addWidget(m_plotAxis);
 }
 

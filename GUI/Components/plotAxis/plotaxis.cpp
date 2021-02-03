@@ -26,42 +26,37 @@
 #include "plotaxis.h"
 #include "ui_plotaxis.h"
 
-PlotAxis::PlotAxis(QWidget *parent) :
+PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWidget *parent) :
   QWidget(parent),
   ui(new Ui::PlotAxis),
-  mPlot(0),
-  mTag1(0),
-  mTag2(0)
+  m_dataAdapter(dataAdapter),
+  m_dataNameList(dataNameList),
+  m_Plot(0)
 {
   ui->setupUi(this);
   
-  mPlot = new QCustomPlot(this);
+  m_Plot = new QCustomPlot(this);
 
-  ui->layout->addWidget(mPlot);
+  ui->layout->addWidget(m_Plot);
 
   // configure plot to have two right axes:
-  mPlot->yAxis->setTickLabels(false);
-  mPlot->xAxis->setTickLabels(false);
-  connect(mPlot->yAxis2, SIGNAL(rangeChanged(QCPRange)), mPlot->yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
-  mPlot->yAxis2->setVisible(true);
-  mPlot->axisRect()->addAxis(QCPAxis::atRight);
-  mPlot->axisRect()->axis(QCPAxis::atRight, 0)->setPadding(30); // add some padding to have space for tags
-  mPlot->axisRect()->axis(QCPAxis::atRight, 1)->setPadding(30); // add some padding to have space for tags
-  
-  // create graphs:
-  mGraph1 = mPlot->addGraph(mPlot->xAxis, mPlot->axisRect()->axis(QCPAxis::atRight, 0));
-  mGraph2 = mPlot->addGraph(mPlot->xAxis, mPlot->axisRect()->axis(QCPAxis::atRight, 1));
-  mGraph1->setPen(QPen(QColor(250, 120, 0)));
-  mGraph2->setPen(QPen(QColor(0, 180, 60)));
-  
-  // create tags with newly introduced AxisTag class (see axistag.h/.cpp):
-  mTag1 = new AxisTag(mGraph1->valueAxis());
-  mTag1->setPen(mGraph1->pen());
-  mTag2 = new AxisTag(mGraph2->valueAxis());
-  mTag2->setPen(mGraph2->pen());
+  m_Plot->yAxis->setTickLabels(false);
+  m_Plot->xAxis->setTickLabels(false);
+  connect(m_Plot->yAxis2, SIGNAL(rangeChanged(QCPRange)), m_Plot->yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
+  m_Plot->yAxis2->setVisible(true);
+  m_Plot->axisRect()->addAxis(QCPAxis::atRight);
+
+  for (int index = 0; index < m_dataNameList.size() && index < 2; index++) //index < 2 because the library support only 2 yAxis
+  {
+    m_Plot->axisRect()->axis(QCPAxis::atRight, index)->setPadding(20); // add some padding to have space for tags
+    m_GraphList.append(m_Plot->addGraph(m_Plot->xAxis, m_Plot->axisRect()->axis(QCPAxis::atRight, index))); // create graph
+    m_GraphList.at(index)->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
+    m_TagList.append(new AxisTag(m_GraphList.at(index)->valueAxis())); //create tag with AxisTag class (see axistag.h/.cpp)
+    m_TagList.at(index)->setPen(m_GraphList.at(index)->pen());
+  }
   
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-  mDataTimer.start(40);
+  mDataTimer.start(200);
 }
 
 PlotAxis::~PlotAxis()
@@ -71,23 +66,18 @@ PlotAxis::~PlotAxis()
 
 void PlotAxis::timerSlot()
 {
-  // calculate and add a new data point to each graph:
-  mGraph1->addData(mGraph1->dataCount(), qSin(mGraph1->dataCount()/50.0)+qSin(mGraph1->dataCount()/50.0/0.3843)*0.25);
-  mGraph2->addData(mGraph2->dataCount(), qCos(mGraph2->dataCount()/50.0)+qSin(mGraph2->dataCount()/50.0/0.4364)*0.15);
+  for (int index = 0; index < m_dataNameList.size(); index++)
+  {
+    m_GraphList.at(index)->addData(m_GraphList.at(index)->dataCount(), m_dataAdapter->getData(m_dataNameList.at(index))); //add a new data point to the graph and
 
-  // make key axis range scroll with the data:
-  mPlot->xAxis->rescale();
-  mGraph1->rescaleValueAxis(false, true);
-  mGraph2->rescaleValueAxis(false, true);
-  mPlot->xAxis->setRange(mPlot->xAxis->range().upper, 100, Qt::AlignRight);
-  
-  // update the vertical axis tag positions and texts to match the rightmost data point of the graphs:
-  double graph1Value = mGraph1->dataMainValue(mGraph1->dataCount()-1);
-  double graph2Value = mGraph2->dataMainValue(mGraph2->dataCount()-1);
-  mTag1->updatePosition(graph1Value);
-  mTag2->updatePosition(graph2Value);
-  mTag1->setText(QString::number(graph1Value, 'f', 2));
-  mTag2->setText(QString::number(graph2Value, 'f', 2));
-  
-  mPlot->replot();
+    m_Plot->xAxis->rescale();
+    m_GraphList.at(index)->rescaleValueAxis(false, true); // make key axis range scroll with the data
+
+    double graphValue = m_GraphList.at(index)->dataMainValue(m_GraphList.at(index)->dataCount()-1); // update the vertical axis tag positions and texts to match the rightmost data point of the graph
+    m_TagList.at(index)->updatePosition(graphValue);
+    m_TagList.at(index)->setText(QString::number(graphValue, 'f', 1));
+  }
+
+  m_Plot->xAxis->setRange(m_Plot->xAxis->range().upper, 100, Qt::AlignRight);
+  m_Plot->replot();
 }

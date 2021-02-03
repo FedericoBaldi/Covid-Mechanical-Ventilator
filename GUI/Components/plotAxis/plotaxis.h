@@ -29,6 +29,7 @@
 #include <QWidget>
 #include "../qcustomplot.h"
 #include "axistag.h"
+#include "dataadapter.h"
 
 namespace Ui {
 class PlotAxis;
@@ -39,7 +40,7 @@ class PlotAxis : public QWidget
   Q_OBJECT
   
 public:
-  explicit PlotAxis(QWidget *parent = 0);
+  explicit PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWidget *parent = 0);
   ~PlotAxis();
   
 private slots:
@@ -47,11 +48,11 @@ private slots:
   
 private:
   Ui::PlotAxis *ui;
-  QCustomPlot *mPlot;
-  QPointer<QCPGraph> mGraph1;
-  QPointer<QCPGraph> mGraph2;
-  AxisTag *mTag1;
-  AxisTag *mTag2;
+  DataAdapter *m_dataAdapter;
+  QList<eDataName> m_dataNameList;
+  QCustomPlot *m_Plot;
+  QList<QPointer<QCPGraph>> m_GraphList;
+  QList<AxisTag *> m_TagList;
   QTimer mDataTimer;
 };
 
