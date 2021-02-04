@@ -54,6 +54,7 @@ private:
   QList<QPointer<QCPGraph>> m_GraphList;
   QList<AxisTag *> m_TagList;
   QTimer mDataTimer;
+  static const char * m_titleNameList[];
 };
 
 
