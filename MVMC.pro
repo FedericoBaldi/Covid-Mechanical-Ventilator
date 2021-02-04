@@ -16,9 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    GUI/Components/maindisplay.cpp \
-    GUI/Components/maindisplayclone.cpp \
+    GUI/Components/alternativeview.cpp \
     GUI/Components/monitor.cpp \
+    GUI/Components/originalview.cpp \
     dataadapter.cpp \
     datahandler.cpp \
     initializer.cpp \
@@ -31,9 +31,9 @@ SOURCES += \
 
 
 HEADERS += \
-    GUI/Components/maindisplay.h \
-    GUI/Components/maindisplayclone.h \
+    GUI/Components/alternativeview.h \
     GUI/Components/monitor.h \
+    GUI/Components/originalview.h \
     dataadapter.h \
     datahandler.h \
     initializer.h \
@@ -44,9 +44,9 @@ HEADERS += \
     GUI/Components/plotAxis/plotaxis.h
 
 FORMS += \
-    GUI/Components/maindisplay.ui \
-    GUI/Components/maindisplayclone.ui \
+    GUI/Components/alternativeview.ui \
     GUI/Components/monitor.ui \
+    GUI/Components/originalview.ui \
     mainwindow.ui \
     GUI/Components/plotAxis/plotaxis.ui
 

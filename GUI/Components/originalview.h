@@ -7,20 +7,20 @@
 #include "monitor.h"
 
 namespace Ui {
-class MainDisplay;
+class OriginalView;
 }
 
-class MainDisplay : public ViewIf
+class OriginalView : public ViewIf
 {
   Q_OBJECT
 
 public:
-  explicit MainDisplay(DataAdapter *dataAdapater, QWidget *parent = nullptr);
-  ~MainDisplay();
+  explicit OriginalView(DataAdapter *dataAdapater, QWidget *parent = nullptr);
+  ~OriginalView();
   void refresh() override;
 
 private:
-  Ui::MainDisplay *ui;
+  Ui::OriginalView *ui;
   DataAdapter *m_dataAdapter;
   QList <Monitor*> m_monitorsList;
 };

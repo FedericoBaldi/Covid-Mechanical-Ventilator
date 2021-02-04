@@ -8,20 +8,20 @@
 #include "plotAxis/plotaxis.h"
 
 namespace Ui {
-class MainDisplayClone;
+class AlternativeView;
 }
 
-class MainDisplayClone : public ViewIf
+class AlternativeView : public ViewIf
 {
   Q_OBJECT
 
 public:
-  explicit MainDisplayClone(DataAdapter *dataAdapater, QWidget *parent = nullptr);
-  ~MainDisplayClone();
+  explicit AlternativeView(DataAdapter *dataAdapater, QWidget *parent = nullptr);
+  ~AlternativeView();
   void refresh() override;
 
 private:
-  Ui::MainDisplayClone *ui;
+  Ui::AlternativeView *ui;
   DataAdapter *m_dataAdapter;
   QList <Monitor*> m_monitorsList;
   PlotAxis * m_plotAxis;

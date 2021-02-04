@@ -1,9 +1,9 @@
-#include "maindisplay.h"
-#include "ui_maindisplay.h"
+#include "alternativeview.h"
+#include "ui_alternativeview.h"
 
-MainDisplay::MainDisplay(DataAdapter *dataAdapater, QWidget *parent) :
+AlternativeView::AlternativeView(DataAdapter *dataAdapater, QWidget *parent) :
   ViewIf(parent),
-  ui(new Ui::MainDisplay),
+  ui(new Ui::AlternativeView),
   m_dataAdapter(dataAdapater)
 {
   ui->setupUi(this);
@@ -24,14 +24,21 @@ MainDisplay::MainDisplay(DataAdapter *dataAdapater, QWidget *parent) :
   ui->monitors_slots->addWidget(m_monitorsList.last());
   m_monitorsList.append(new Monitor(m_dataAdapter, dnO2));
   ui->monitors_slots->addWidget(m_monitorsList.last());
+
+  QList<eDataName> dataNameList;
+  dataNameList.append(dnPressure);
+  dataNameList.append(dnTidal);
+  //dataNameList.append(dnFlow);
+  m_plotAxis = new PlotAxis(m_dataAdapter, dataNameList);
+  ui->graphLayout->addWidget(m_plotAxis);
 }
 
-MainDisplay::~MainDisplay()
+AlternativeView::~AlternativeView()
 {
   delete ui;
 }
 
-void MainDisplay::refresh()
+void AlternativeView::refresh()
 {
   for (int index = 0; index < m_monitorsList.size(); index++)
   {

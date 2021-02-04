@@ -1,6 +1,6 @@
 #include "initializer.h"
-#include "GUI/Components/maindisplay.h"
-#include "GUI/Components/maindisplayclone.h"
+#include "GUI/Components/originalview.h"
+#include "GUI/Components/alternativeview.h"
 #include "mainwindow.h"
 #include "GUI/Components/monitor.h"
 
@@ -31,8 +31,8 @@ void Initializer::start()
   m_dataAdapater = new DataAdapter(m_dataHandler);
   emit dataHandlerSetUp_signal();
 
-  m_viewList.append(new MainDisplay(m_dataAdapater));
-  m_viewList.append(new MainDisplayClone(m_dataAdapater));
+  m_viewList.append(new OriginalView(m_dataAdapater));
+  m_viewList.append(new AlternativeView(m_dataAdapater));
   m_mainWindow = new MainWindow(m_dataAdapater, m_viewList);
   m_mainWindow->show();
 }

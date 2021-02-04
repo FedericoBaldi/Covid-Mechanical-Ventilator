@@ -1,9 +1,9 @@
-#include "maindisplayclone.h"
-#include "ui_maindisplayclone.h"
+#include "originalview.h"
+#include "ui_originalview.h"
 
-MainDisplayClone::MainDisplayClone(DataAdapter *dataAdapater, QWidget *parent) :
+OriginalView::OriginalView(DataAdapter *dataAdapater, QWidget *parent) :
   ViewIf(parent),
-  ui(new Ui::MainDisplayClone),
+  ui(new Ui::OriginalView),
   m_dataAdapter(dataAdapater)
 {
   ui->setupUi(this);
@@ -24,21 +24,14 @@ MainDisplayClone::MainDisplayClone(DataAdapter *dataAdapater, QWidget *parent) :
   ui->monitors_slots->addWidget(m_monitorsList.last());
   m_monitorsList.append(new Monitor(m_dataAdapter, dnO2));
   ui->monitors_slots->addWidget(m_monitorsList.last());
-
-  QList<eDataName> dataNameList;
-  dataNameList.append(dnPressure);
-  dataNameList.append(dnTidal);
-  //dataNameList.append(dnFlow);
-  m_plotAxis = new PlotAxis(m_dataAdapter, dataNameList);
-  ui->graphLayout->addWidget(m_plotAxis);
 }
 
-MainDisplayClone::~MainDisplayClone()
+OriginalView::~OriginalView()
 {
   delete ui;
 }
 
-void MainDisplayClone::refresh()
+void OriginalView::refresh()
 {
   for (int index = 0; index < m_monitorsList.size(); index++)
   {
