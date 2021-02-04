@@ -43,17 +43,19 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
   m_Plot->yAxis->setTickLabels(false);
   m_Plot->xAxis->setTickLabels(false);
   connect(m_Plot->yAxis2, SIGNAL(rangeChanged(QCPRange)), m_Plot->yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
-  m_Plot->yAxis2->setVisible(true);
-  m_Plot->axisRect()->addAxis(QCPAxis::atRight);
 
-  for (int index = 0; index < m_dataNameList.size() && index < 2; index++) //index < 2 because the library support only 2 yAxis
+  m_Plot->yAxis2->setVisible(true);
+
+  for (int index = 0; index < m_dataNameList.size(); index++)
   {
+    m_Plot->axisRect()->addAxis(QCPAxis::atRight);
     m_Plot->axisRect()->axis(QCPAxis::atRight, index)->setPadding(20); // add some padding to have space for tags
     m_GraphList.append(m_Plot->addGraph(m_Plot->xAxis, m_Plot->axisRect()->axis(QCPAxis::atRight, index))); // create graph
     m_GraphList.at(index)->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
     m_TagList.append(new AxisTag(m_GraphList.at(index)->valueAxis())); //create tag with AxisTag class (see axistag.h/.cpp)
     m_TagList.at(index)->setPen(m_GraphList.at(index)->pen());
   }
+  m_Plot->axisRect()->removeAxis(m_Plot->axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
   
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
   mDataTimer.start(200);
