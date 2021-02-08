@@ -41,7 +41,7 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
   m_Plot(0)
 {
   ui->setupUi(this);
-  
+
   m_Plot = new QCustomPlot(this);
 
   ui->layout->addWidget(m_Plot);
@@ -56,7 +56,6 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
   for (int index = 0; index < m_dataNameList.size(); index++)
   {
     m_Plot->axisRect()->addAxis(QCPAxis::atRight);
-    //m_Plot->axisRect()->axis(QCPAxis::atRight, index)->setPadding(20); // add some padding to have space for tags
     m_GraphList.append(m_Plot->addGraph(m_Plot->xAxis, m_Plot->axisRect()->axis(QCPAxis::atRight, index))); // create graph
     m_GraphList.at(index)->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
     m_TagList.append(new AxisTag(m_GraphList.at(index)->valueAxis())); //create tag with AxisTag class (see axistag.h/.cpp)
@@ -64,7 +63,7 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
     m_Plot->axisRect()->axis(QCPAxis::atRight, index)->setLabel(m_titleNameList[dataNameList.at(index)]);
   }
   m_Plot->axisRect()->removeAxis(m_Plot->axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
-  
+
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
   mDataTimer.start(200);
 }
