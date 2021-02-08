@@ -24,7 +24,6 @@
 ****************************************************************************/
 
 #include "plotaxis.h"
-#include "ui_plotaxis.h"
 
 const char * PlotAxis::m_titleNameList[] =
 {
@@ -34,35 +33,27 @@ const char * PlotAxis::m_titleNameList[] =
 };
 
 PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWidget *parent) :
-  QWidget(parent),
-  ui(new Ui::PlotAxis),
+  QCustomPlot(parent),
   m_dataAdapter(dataAdapter),
-  m_dataNameList(dataNameList),
-  m_Plot(0)
+  m_dataNameList(dataNameList)
 {
-  ui->setupUi(this);
-
-  m_Plot = new QCustomPlot(this);
-
-  ui->layout->addWidget(m_Plot);
-
   // configure plot to have two right axes:
-  m_Plot->yAxis->setTickLabels(false);
-  m_Plot->xAxis->setTickLabels(false);
-  connect(m_Plot->yAxis2, SIGNAL(rangeChanged(QCPRange)), m_Plot->yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
+  yAxis->setTickLabels(false);
+  xAxis->setTickLabels(false);
+  connect(yAxis2, SIGNAL(rangeChanged(QCPRange)), yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
 
-  m_Plot->yAxis2->setVisible(true);
+  yAxis2->setVisible(true);
 
   for (int index = 0; index < m_dataNameList.size(); index++)
   {
-    m_Plot->axisRect()->addAxis(QCPAxis::atRight);
-    m_GraphList.append(m_Plot->addGraph(m_Plot->xAxis, m_Plot->axisRect()->axis(QCPAxis::atRight, index))); // create graph
+    axisRect()->addAxis(QCPAxis::atRight);
+    m_GraphList.append(addGraph(xAxis, axisRect()->axis(QCPAxis::atRight, index))); // create graph
     m_GraphList.at(index)->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
     m_TagList.append(new AxisTag(m_GraphList.at(index)->valueAxis())); //create tag with AxisTag class (see axistag.h/.cpp)
     m_TagList.at(index)->setPen(m_GraphList.at(index)->pen());
-    m_Plot->axisRect()->axis(QCPAxis::atRight, index)->setLabel(m_titleNameList[dataNameList.at(index)]);
+    axisRect()->axis(QCPAxis::atRight, index)->setLabel(m_titleNameList[dataNameList.at(index)]);
   }
-  m_Plot->axisRect()->removeAxis(m_Plot->axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
+  axisRect()->removeAxis(axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
 
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
   mDataTimer.start(200);
@@ -70,7 +61,7 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
 
 PlotAxis::~PlotAxis()
 {
-  delete ui;
+  delete this;
 }
 
 void PlotAxis::timerSlot()
@@ -79,7 +70,7 @@ void PlotAxis::timerSlot()
   {
     m_GraphList.at(index)->addData(m_GraphList.at(index)->dataCount(), m_dataAdapter->getData(m_dataNameList.at(index))); //add a new data point to the graph and
 
-    m_Plot->xAxis->rescale();
+    xAxis->rescale();
     m_GraphList.at(index)->rescaleValueAxis(false, true); // make key axis range scroll with the data
 
     double graphValue = m_GraphList.at(index)->dataMainValue(m_GraphList.at(index)->dataCount()-1); // update the vertical axis tag positions and texts to match the rightmost data point of the graph
@@ -87,6 +78,6 @@ void PlotAxis::timerSlot()
     m_TagList.at(index)->setText(QString::number(graphValue, 'f', 1));
   }
 
-  m_Plot->xAxis->setRange(m_Plot->xAxis->range().upper, 100, Qt::AlignRight);
-  m_Plot->replot();
+  xAxis->setRange(xAxis->range().upper, 100, Qt::AlignRight);
+  replot();
 }

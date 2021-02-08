@@ -27,7 +27,7 @@
 #define PLOTAXIS_H
 
 #include <QWidget>
-#include "../qcustomplot.h"
+#include "GUI/Components/qcustomplot.h"
 #include "axistag.h"
 #include "dataadapter.h"
 
@@ -35,7 +35,7 @@ namespace Ui {
 class PlotAxis;
 }
 
-class PlotAxis : public QWidget
+class PlotAxis : public QCustomPlot
 {
   Q_OBJECT
   
@@ -47,10 +47,8 @@ private slots:
   void timerSlot();
   
 private:
-  Ui::PlotAxis *ui;
   DataAdapter *m_dataAdapter;
   QList<eDataName> m_dataNameList;
-  QCustomPlot *m_Plot;
   QList<QPointer<QCPGraph>> m_GraphList;
   QList<AxisTag *> m_TagList;
   QTimer mDataTimer;

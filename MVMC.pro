@@ -50,8 +50,7 @@ FORMS += \
     GUI/Components/alternativeview2.ui \
     GUI/Components/monitor.ui \
     GUI/Components/originalview.ui \
-    mainwindow.ui \
-    GUI/Components/plotAxis/plotaxis.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
