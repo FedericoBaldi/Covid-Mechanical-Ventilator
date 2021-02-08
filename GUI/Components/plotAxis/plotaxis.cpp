@@ -47,6 +47,7 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
   for (int index = 0; index < m_dataNameList.size(); index++)
   {
     axisRect()->addAxis(QCPAxis::atRight);
+    axisRect()->axis(QCPAxis::atRight, index)->setLabelPadding(5);
     m_GraphList.append(addGraph(xAxis, axisRect()->axis(QCPAxis::atRight, index))); // create graph
     m_GraphList.at(index)->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
     m_TagList.append(new AxisTag(m_GraphList.at(index)->valueAxis())); //create tag with AxisTag class (see axistag.h/.cpp)

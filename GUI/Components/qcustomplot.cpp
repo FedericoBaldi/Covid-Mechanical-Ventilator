@@ -9309,7 +9309,7 @@ void QCPAxisPainterPrivate::draw(QCPPainter *painter)
     oldClipRect = painter->clipRegion().boundingRect();
     painter->setClipRect(axisRect);
   }
-  QSize tickLabelsSize(0, 0); // size of largest tick label, for offset calculation of axis label
+  QSize tickLabelsSize(35, 0); // size of largest tick label, for offset calculation of axis label
   if (!tickLabels.isEmpty())
   {
     if (tickLabelSide == QCPAxis::lsOutside)
@@ -9424,7 +9424,7 @@ int QCPAxisPainterPrivate::size() const
   // calculate size of tick labels:
   if (tickLabelSide == QCPAxis::lsOutside)
   {
-    QSize tickLabelsSize(0, 0);
+    QSize tickLabelsSize(35, 0);
     if (!tickLabels.isEmpty())
     {
       for (int i=0; i<tickLabels.size(); ++i)
@@ -12931,7 +12931,7 @@ QCustomPlot::QCustomPlot(QWidget *parent) :
   legend = new QCPLegend;
   legend->setVisible(false);
   defaultAxisRect->insetLayout()->addElement(legend, Qt::AlignRight|Qt::AlignTop);
-  defaultAxisRect->insetLayout()->setMargins(QMargins(12, 12, 12, 12));
+  defaultAxisRect->insetLayout()->setMargins(QMargins(6, 6, 6, 6));
   
   defaultAxisRect->setLayer(QLatin1String("background"));
   xAxis->setLayer(QLatin1String("axes"));
@@ -16833,7 +16833,7 @@ QCPAxisRect::QCPAxisRect(QCustomPlot *parentPlot, bool setupDefaultAxes) :
   mInsetLayout->setParent(this);
   
   setMinimumSize(50, 50);
-  setMinimumMargins(QMargins(15, 15, 15, 15));
+  setMinimumMargins(QMargins(6, 6, 6, 6));
   mAxes.insert(QCPAxis::atLeft, QList<QCPAxis*>());
   mAxes.insert(QCPAxis::atRight, QList<QCPAxis*>());
   mAxes.insert(QCPAxis::atTop, QList<QCPAxis*>());
