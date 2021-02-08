@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget#PlotAxis{border:1px solid  rgb(136, 138, 133);}</string>
+   <string notr="true">QWidget#PlotAxis{border:1px solid  rgb(0, 255, 0);}</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">

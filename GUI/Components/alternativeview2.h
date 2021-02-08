@@ -7,20 +7,20 @@
 #include "plotAxis/plotaxis.h"
 
 namespace Ui {
-class AlternativeView;
+class AlternativeView2;
 }
 
-class AlternativeView : public ViewIf
+class AlternativeView2 : public ViewIf
 {
   Q_OBJECT
 
 public:
-  explicit AlternativeView(DataAdapter *dataAdapater, QWidget *parent = nullptr);
-  ~AlternativeView();
+  explicit AlternativeView2(DataAdapter *dataAdapater, QWidget *parent = nullptr);
+  ~AlternativeView2();
   void refresh() override;
 
 private:
-  Ui::AlternativeView *ui;
+  Ui::AlternativeView2 *ui;
   DataAdapter *m_dataAdapter;
   QList <Monitor*> m_monitorsList;
   PlotAxis * m_plotAxis;

@@ -1,6 +1,7 @@
 #include "initializer.h"
 #include "GUI/Components/originalview.h"
 #include "GUI/Components/alternativeview.h"
+#include "GUI/Components/alternativeview2.h"
 #include "mainwindow.h"
 #include "GUI/Components/monitor.h"
 
@@ -33,6 +34,7 @@ void Initializer::start()
 
   m_viewList.append(new OriginalView(m_dataAdapater));
   m_viewList.append(new AlternativeView(m_dataAdapater));
+  m_viewList.append(new AlternativeView2(m_dataAdapater));
   m_mainWindow = new MainWindow(m_dataAdapater, m_viewList);
   m_mainWindow->show();
 }

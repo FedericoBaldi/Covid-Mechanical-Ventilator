@@ -1,5 +1,4 @@
-#ifndef MAINDISPLAY_H
-#define MAINDISPLAY_H
+#pragma once
 
 #include <QWidget>
 #include "dataadapter.h"
@@ -25,4 +24,3 @@ private:
   QList <Monitor*> m_monitorsList;
 };
 
-#endif // MAINDISPLAY_H

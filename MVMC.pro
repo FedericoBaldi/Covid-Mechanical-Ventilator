@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     GUI/Components/alternativeview.cpp \
+    GUI/Components/alternativeview2.cpp \
     GUI/Components/monitor.cpp \
     GUI/Components/originalview.cpp \
     dataadapter.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
 
 HEADERS += \
     GUI/Components/alternativeview.h \
+    GUI/Components/alternativeview2.h \
     GUI/Components/monitor.h \
     GUI/Components/originalview.h \
     dataadapter.h \
@@ -45,6 +47,7 @@ HEADERS += \
 
 FORMS += \
     GUI/Components/alternativeview.ui \
+    GUI/Components/alternativeview2.ui \
     GUI/Components/monitor.ui \
     GUI/Components/originalview.ui \
     mainwindow.ui \

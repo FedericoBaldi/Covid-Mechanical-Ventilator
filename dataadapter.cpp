@@ -33,6 +33,7 @@ float DataAdapter::getData(eDataName dataName)
     if (dataList.at(index).first == m_dataNameList[dataName])
     {
       result = dataList.at(index).second;
+      isFound = true;
     }
     index++;
   }
