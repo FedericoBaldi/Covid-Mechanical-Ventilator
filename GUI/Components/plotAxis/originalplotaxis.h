@@ -38,7 +38,7 @@ class OriginalPlotAxis : public QCustomPlot
   Q_OBJECT
   
 public:
-  explicit OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QWidget *parent = 0);
+  explicit OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QColor graphColor, QWidget *parent = 0);
   ~OriginalPlotAxis();
   
 private slots:

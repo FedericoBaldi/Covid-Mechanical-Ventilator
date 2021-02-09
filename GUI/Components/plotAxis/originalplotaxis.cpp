@@ -32,19 +32,33 @@ const char * OriginalPlotAxis::m_titleNameList[] =
   #undef X
 };
 
-OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QWidget *parent) :
+OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QColor graphColor, QWidget *parent) :
   QCustomPlot(parent),
   m_dataAdapter(dataAdapter),
   m_dataName(dataName)
 {
-  xAxis->setTickLabels(false);
-  //connect(yAxis2, SIGNAL(rangeChanged(QCPRange)), yAxis, SLOT(setRange(QCPRange))); // left axis only mirrors inner right axis
-
   axisRect()->axis(QCPAxis::atLeft, 0)->setLabelPadding(5);
   m_Graph = addGraph(xAxis, axisRect()->axis(QCPAxis::atLeft, 0)); // create graph
-  m_Graph->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
+  m_Graph->setPen(QPen(graphColor));
+  QBrush graphBrush;
+  graphBrush.setColor(QColor("black"));
+  graphBrush.setStyle(Qt::SolidPattern);
+  setBackground(graphBrush);
 
-  axisRect()->axis(QCPAxis::atRight, 0)->setLabel(m_titleNameList[dataName]);
+  yAxis->grid()->setVisible(false);
+  yAxis->setLabel(m_titleNameList[dataName]);
+  yAxis->setLabelColor(QColor(255,228,181));
+  yAxis->setSubTicks(true);
+  yAxis->setSubTickPen(QPen(QColor(127,114,90)));
+  QPen yAxPen(QColor(255,228,181));
+  yAxPen.setStyle(Qt::SolidLine);
+  yAxis->setBasePen(QPen(QColor(255,228,181)));
+  yAxis->setTickPen(QPen(QColor(255,228,181)));
+  yAxis->setTickLabelColor(QColor(146,146,146));
+  xAxis->setBasePen(QPen(QColor(255,228,181)));
+  xAxis->setTicks(false);
+  xAxis->setTickLabels(false);
+  xAxis->grid()->setVisible(false);
 
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
   mDataTimer.start(200);
