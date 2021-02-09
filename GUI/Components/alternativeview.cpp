@@ -29,8 +29,7 @@ AlternativeView::AlternativeView(DataAdapter *dataAdapater, QWidget *parent) :
   dataNameList.append(dnPressure);
   dataNameList.append(dnTidal);
   dataNameList.append(dnFlow);
-  m_plotAxis = new PlotAxis(m_dataAdapter, dataNameList);
-  ui->graphLayout->addWidget(m_plotAxis);
+  ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
 }
 
 AlternativeView::~AlternativeView()
