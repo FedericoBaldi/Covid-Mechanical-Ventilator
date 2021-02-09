@@ -20,6 +20,7 @@ SOURCES += \
     GUI/Components/alternativeview2.cpp \
     GUI/Components/monitor.cpp \
     GUI/Components/originalview.cpp \
+    GUI/Components/plotAxis/originalplotaxis.cpp \
     dataadapter.cpp \
     datahandler.cpp \
     initializer.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     GUI/Components/alternativeview2.h \
     GUI/Components/monitor.h \
     GUI/Components/originalview.h \
+    GUI/Components/plotAxis/originalplotaxis.h \
     dataadapter.h \
     datahandler.h \
     initializer.h \

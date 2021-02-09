@@ -1,5 +1,6 @@
 #include "originalview.h"
 #include "ui_originalview.h"
+#include "plotAxis/originalplotaxis.h"
 
 OriginalView::OriginalView(DataAdapter *dataAdapater, QWidget *parent) :
   ViewIf(parent),
@@ -24,6 +25,10 @@ OriginalView::OriginalView(DataAdapter *dataAdapater, QWidget *parent) :
   ui->monitors_slots->addWidget(m_monitorsList.last());
   m_monitorsList.append(new Monitor(m_dataAdapter, dnO2));
   ui->monitors_slots->addWidget(m_monitorsList.last());
+
+  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnPressure));
+  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnFlow));
+  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnTidal));
 }
 
 OriginalView::~OriginalView()
