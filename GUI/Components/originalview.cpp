@@ -27,8 +27,8 @@ OriginalView::OriginalView(DataAdapter *dataAdapater, QWidget *parent) :
   ui->monitors_slots->addWidget(m_monitorsList.last());
 
   ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnPressure, QColor(255,255,0)));
-  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnFlow, QColor(50,205,50)));
-  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnTidal, QColor(0,255,255)));
+  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnTidal, QColor(50,205,50)));
+  ui->graphLayout->addWidget(new OriginalPlotAxis(m_dataAdapter, dnFlow, QColor(0,255,255)));
 }
 
 OriginalView::~OriginalView()

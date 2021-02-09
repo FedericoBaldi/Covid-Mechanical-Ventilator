@@ -30,11 +30,11 @@ AlternativeView2::AlternativeView2(DataAdapter *dataAdapater, QWidget *parent) :
   ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
 
   dataNameList.clear();
-  dataNameList.append(dnFlow);
+  dataNameList.append(dnTidal);
   ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
 
   dataNameList.clear();
-  dataNameList.append(dnTidal);
+  dataNameList.append(dnFlow);
   ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
 }
 
