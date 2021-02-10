@@ -50,5 +50,9 @@ private:
   QPointer<QCPGraph> m_Graph;
   QList<AxisTag *> m_TagList;
   QTimer mDataTimer;
+  QVector<double> *xValues;
+  QVector<double> *yValues;
+  int m_currentGraphPos;
   static const char * m_titleNameList[];
+  static const int GRAPH_VALUES_SIZE;
 };

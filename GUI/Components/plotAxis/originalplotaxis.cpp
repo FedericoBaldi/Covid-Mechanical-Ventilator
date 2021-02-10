@@ -32,10 +32,13 @@ const char * OriginalPlotAxis::m_titleNameList[] =
   #undef X
 };
 
+const int OriginalPlotAxis::GRAPH_VALUES_SIZE = 80;
+
 OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QColor graphColor, QWidget *parent) :
   QCustomPlot(parent),
   m_dataAdapter(dataAdapter),
-  m_dataName(dataName)
+  m_dataName(dataName),
+  m_currentGraphPos(0)
 {
   axisRect()->axis(QCPAxis::atLeft, 0)->setLabelPadding(5);
   m_Graph = addGraph(xAxis, axisRect()->axis(QCPAxis::atLeft, 0)); // create graph
@@ -61,7 +64,14 @@ OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName,
   xAxis->grid()->setVisible(false);
 
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-  mDataTimer.start(200);
+  mDataTimer.start(150);
+
+  xValues = new QVector<double>(GRAPH_VALUES_SIZE);
+  yValues = new QVector<double>(GRAPH_VALUES_SIZE);
+  for (int index = 0; index < xValues->length(); index++)
+  {
+    (*xValues)[index] = index;
+  }
 }
 
 OriginalPlotAxis::~OriginalPlotAxis()
@@ -71,11 +81,17 @@ OriginalPlotAxis::~OriginalPlotAxis()
 
 void OriginalPlotAxis::timerSlot()
 {
-  m_Graph->addData(m_Graph->dataCount(), m_dataAdapter->getData(m_dataName)); //add a new data point to the graph and
+  if (m_currentGraphPos == GRAPH_VALUES_SIZE)
+  {
+    m_currentGraphPos = 0;
+  }
+  (*yValues)[m_currentGraphPos] = m_dataAdapter->getData(m_dataName); //add a new data point by replacing the last data from the left of the graph
+  m_currentGraphPos++;
+
+  m_Graph->setData(*xValues, *yValues);
 
   xAxis->rescale();
   m_Graph->rescaleValueAxis(false, true); // make key axis range scroll with the data
 
-  xAxis->setRange(xAxis->range().upper, 100, Qt::AlignRight);
   replot();
 }

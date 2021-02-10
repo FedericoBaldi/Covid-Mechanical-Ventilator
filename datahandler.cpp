@@ -3,7 +3,7 @@
 #include <QTextStream>
 #include <QPair>
 
-const int DataHandler::TIMER_TIME = 200;
+const int DataHandler::TIMER_TIME = 150;
 //MODEL it is called "handler" because it handles and manipulate raw data. It acquires them and does a first elaboratio of them.
 DataHandler::DataHandler():
   m_dataTimer(nullptr)

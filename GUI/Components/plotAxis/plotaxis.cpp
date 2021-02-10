@@ -57,7 +57,7 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
   axisRect()->removeAxis(axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
 
   connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-  mDataTimer.start(200);
+  mDataTimer.start(150);
 }
 
 PlotAxis::~PlotAxis()
