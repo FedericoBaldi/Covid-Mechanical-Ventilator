@@ -63,9 +63,6 @@ OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName,
   xAxis->setTickLabels(false);
   xAxis->grid()->setVisible(false);
 
-  connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-  mDataTimer.start(150);
-
   xValues = new QVector<double>(GRAPH_VALUES_SIZE);
   yValues = new QVector<double>(GRAPH_VALUES_SIZE);
   for (int index = 0; index < xValues->length(); index++)
@@ -79,7 +76,7 @@ OriginalPlotAxis::~OriginalPlotAxis()
   delete this;
 }
 
-void OriginalPlotAxis::timerSlot()
+void OriginalPlotAxis::refresh()
 {
   if (m_currentGraphPos == GRAPH_VALUES_SIZE)
   {

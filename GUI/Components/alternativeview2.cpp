@@ -27,15 +27,18 @@ AlternativeView2::AlternativeView2(DataAdapter *dataAdapater, QWidget *parent) :
 
   QList<eDataName> dataNameList;
   dataNameList.append(dnPressure);
-  ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
+  m_plotList.append(new PlotAxis(m_dataAdapter, dataNameList));
+  ui->graphLayout->addWidget(m_plotList.last());
 
   dataNameList.clear();
   dataNameList.append(dnTidal);
-  ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
+  m_plotList.append(new PlotAxis(m_dataAdapter, dataNameList));
+  ui->graphLayout->addWidget(m_plotList.last());
 
   dataNameList.clear();
   dataNameList.append(dnFlow);
-  ui->graphLayout->addWidget(new PlotAxis(m_dataAdapter, dataNameList));
+  m_plotList.append(new PlotAxis(m_dataAdapter, dataNameList));
+  ui->graphLayout->addWidget(m_plotList.last());
 }
 
 AlternativeView2::~AlternativeView2()
@@ -48,5 +51,9 @@ void AlternativeView2::refresh()
   for (int index = 0; index < m_monitorsList.size(); index++)
   {
     m_monitorsList.at(index)->refresh();
+  }
+  for (int index = 0; index < m_plotList.size(); index++)
+  {
+    m_plotList.at(index)->refresh();
   }
 }

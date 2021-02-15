@@ -4,6 +4,7 @@
 #include "dataadapter.h"
 #include "viewif.h"
 #include "monitor.h"
+#include "plotAxis/originalplotaxis.h"
 
 namespace Ui {
 class OriginalView;
@@ -22,5 +23,6 @@ private:
   Ui::OriginalView *ui;
   DataAdapter *m_dataAdapter;
   QList <Monitor*> m_monitorsList;
+  QList <OriginalPlotAxis*> m_plotList;
 };
 

@@ -55,9 +55,6 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
     axisRect()->axis(QCPAxis::atRight, index)->setLabel(m_titleNameList[dataNameList.at(index)]);
   }
   axisRect()->removeAxis(axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
-
-  connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-  mDataTimer.start(150);
 }
 
 PlotAxis::~PlotAxis()
@@ -65,7 +62,7 @@ PlotAxis::~PlotAxis()
   delete this;
 }
 
-void PlotAxis::timerSlot()
+void PlotAxis::refresh()
 {
   for (int index = 0; index < m_dataNameList.size(); index++)
   {

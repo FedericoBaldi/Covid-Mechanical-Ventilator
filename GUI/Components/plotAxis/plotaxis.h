@@ -30,6 +30,7 @@
 #include "GUI/Components/qcustomplot.h"
 #include "axistag.h"
 #include "dataadapter.h"
+#include "viewif.h"
 
 namespace Ui {
 class PlotAxis;
@@ -41,10 +42,8 @@ class PlotAxis : public QCustomPlot
   
 public:
   explicit PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWidget *parent = 0);
-  ~PlotAxis();
-  
-private slots:
-  void timerSlot();
+  void refresh();
+  ~PlotAxis(); 
   
 private:
   DataAdapter *m_dataAdapter;

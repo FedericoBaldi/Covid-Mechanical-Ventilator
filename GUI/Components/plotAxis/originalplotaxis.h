@@ -39,10 +39,8 @@ class OriginalPlotAxis : public QCustomPlot
   
 public:
   explicit OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QColor graphColor, QWidget *parent = 0);
+  void refresh();
   ~OriginalPlotAxis();
-  
-private slots:
-  void timerSlot();
   
 private:
   DataAdapter *m_dataAdapter;

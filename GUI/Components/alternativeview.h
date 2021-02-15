@@ -23,5 +23,6 @@ private:
   Ui::AlternativeView *ui;
   DataAdapter *m_dataAdapter;
   QList <Monitor*> m_monitorsList;
+  QList <PlotAxis*> m_plotList;
 };
 
