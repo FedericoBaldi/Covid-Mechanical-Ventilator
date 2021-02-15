@@ -3,7 +3,7 @@
 #include <QTextStream>
 #include <QPair>
 
-const int DataHandler::TIMER_TIME = 150;
+const int DataHandler::TIMER_TIME = 180;
 //MODEL it is called "handler" because it handles and manipulate raw data. It acquires them and does a first elaboratio of them.
 DataHandler::DataHandler():
   m_dataTimer(nullptr)
@@ -11,9 +11,15 @@ DataHandler::DataHandler():
 
 }
 
-QList<QPair<QString, float> > DataHandler::getCurrentData()
+QList<QPair<QString, float>> DataHandler::getCurrentData()
 {
+  m_dataMutex.lock();
   return m_dataList;
+}
+
+void DataHandler::unlockCurrentData()
+{
+  m_dataMutex.unlock();
 }
 
 /*!
@@ -46,11 +52,27 @@ void DataHandler::refreshData_slot()
     QList<QPair<QString, float>> dataList;
     while (!in.atEnd())
     {
-      QString line = in.readLine();
-      dataList.append(processLine(line));
+      bool isFound = false;
+      int index = 0;
+      QPair<QString, float> processedLine = processLine(in.readLine());
+      while (index < dataList.size() && !isFound)
+      {
+        if (dataList.at(index).first == processedLine.first)
+        {
+          dataList.replace(index, processedLine);
+          isFound = true;
+        }
+        index++;
+      }
+      if (!isFound)
+      {
+        dataList.append(processedLine);
+      }
     }
     file.close();
+    m_dataMutex.lock();
     m_dataList = dataList;
+    m_dataMutex.unlock();
     emit dataChanged(); //notify that there are new data availables
   }
   m_dataTimer->start(TIMER_TIME);

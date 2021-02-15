@@ -28,6 +28,7 @@ float DataAdapter::getData(eDataName dataName)
   bool isFound = false;
   int index = 0;
   QList<QPair<QString, float>> dataList = m_dataHandler->getCurrentData();
+  m_dataHandler->unlockCurrentData();
   while (index < dataList.size() && !isFound)
   {
     if (dataList.at(index).first == m_dataNameList[dataName])
