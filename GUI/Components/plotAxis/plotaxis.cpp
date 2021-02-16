@@ -32,6 +32,13 @@ const char * PlotAxis::m_titleNameList[] =
   #undef X
 };
 
+const char * PlotAxis::m_measureUnitNameList[] =
+{
+  #define X(enumerator, name, showName, measureUnit) measureUnit,
+  DATANAME_X
+  #undef X
+};
+
 PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWidget *parent) :
   QCustomPlot(parent),
   m_dataAdapter(dataAdapter),
@@ -52,7 +59,15 @@ PlotAxis::PlotAxis(DataAdapter *dataAdapter, QList<eDataName> dataNameList, QWid
     m_GraphList.at(index)->setPen(QPen(QColor((qrand()%255), (qrand()%255), (qrand()%255))));
     m_TagList.append(new AxisTag(m_GraphList.at(index)->valueAxis())); //create tag with AxisTag class (see axistag.h/.cpp)
     m_TagList.at(index)->setPen(m_GraphList.at(index)->pen());
-    axisRect()->axis(QCPAxis::atRight, index)->setLabel(m_titleNameList[dataNameList.at(index)]);
+
+    QString title(m_titleNameList[dataNameList.at(index)]);
+    if (m_measureUnitNameList[dataNameList.at(index)] != "")
+    {
+      title.append(" [");
+      title.append(m_measureUnitNameList[dataNameList.at(index)]);
+      title.append("]");
+    }
+    axisRect()->axis(QCPAxis::atRight, index)->setLabel(title);
   }
   axisRect()->removeAxis(axisRect()->axis(QCPAxis::atRight, m_dataNameList.size()));
 }

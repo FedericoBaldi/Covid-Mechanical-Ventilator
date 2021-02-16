@@ -52,5 +52,6 @@ private:
   QVector<double> *yValues;
   int m_currentGraphPos;
   static const char * m_titleNameList[];
+  static const char * m_measureUnitNameList[];
   static const int GRAPH_VALUES_SIZE;
 };

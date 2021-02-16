@@ -32,6 +32,13 @@ const char * OriginalPlotAxis::m_titleNameList[] =
   #undef X
 };
 
+const char * OriginalPlotAxis::m_measureUnitNameList[] =
+{
+  #define X(enumerator, name, showName, measureUnit) measureUnit,
+  DATANAME_X
+  #undef X
+};
+
 const int OriginalPlotAxis::GRAPH_VALUES_SIZE = 80;
 
 OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName, QColor graphColor, QWidget *parent) :
@@ -49,7 +56,15 @@ OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName,
   setBackground(graphBrush);
 
   yAxis->grid()->setVisible(false);
-  yAxis->setLabel(m_titleNameList[dataName]);
+
+  QString title(m_titleNameList[dataName]);
+  if (m_measureUnitNameList[dataName] != "")
+  {
+    title.append(" [");
+    title.append(m_measureUnitNameList[dataName]);
+    title.append("]");
+  }
+  yAxis->setLabel(title);
   yAxis->setLabelColor(QColor(255,228,181));
   yAxis->setSubTicks(true);
   yAxis->setSubTickPen(QPen(QColor(127,114,90)));

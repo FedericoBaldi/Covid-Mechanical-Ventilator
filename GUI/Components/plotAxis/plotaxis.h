@@ -52,6 +52,7 @@ private:
   QList<AxisTag *> m_TagList;
   QTimer mDataTimer;
   static const char * m_titleNameList[];
+  static const char * m_measureUnitNameList[];
 };
 
 
