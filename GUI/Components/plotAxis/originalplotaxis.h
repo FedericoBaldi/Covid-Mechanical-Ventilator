@@ -51,6 +51,7 @@ private:
   QVector<double> *xValues;
   QVector<double> *yValues;
   int m_currentGraphPos;
+  QWidget *m_blackBar;
   static const char * m_titleNameList[];
   static const char * m_measureUnitNameList[];
   static const int GRAPH_VALUES_SIZE;

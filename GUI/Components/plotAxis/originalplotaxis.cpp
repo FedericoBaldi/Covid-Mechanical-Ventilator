@@ -45,7 +45,8 @@ OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName,
   QCustomPlot(parent),
   m_dataAdapter(dataAdapter),
   m_dataName(dataName),
-  m_currentGraphPos(0)
+  m_currentGraphPos(0),
+  m_blackBar(nullptr)
 {
   axisRect()->axis(QCPAxis::atLeft, 0)->setLabelPadding(5);
   m_Graph = addGraph(xAxis, axisRect()->axis(QCPAxis::atLeft, 0)); // create graph
@@ -84,6 +85,10 @@ OriginalPlotAxis::OriginalPlotAxis(DataAdapter *dataAdapter, eDataName dataName,
   {
     (*xValues)[index] = index;
   }
+
+  m_blackBar = new QWidget(this);
+  m_blackBar->setGeometry(50,0,30,113);
+  m_blackBar->setStyleSheet("background-color:black;");
 }
 
 OriginalPlotAxis::~OriginalPlotAxis()
@@ -98,12 +103,12 @@ void OriginalPlotAxis::refresh()
     m_currentGraphPos = 0;
   }
   (*yValues)[m_currentGraphPos] = m_dataAdapter->getData(m_dataName); //add a new data point by replacing the last data from the left of the graph
-  m_currentGraphPos++;
-
   m_Graph->setData(*xValues, *yValues);
-
   xAxis->rescale();
   m_Graph->rescaleValueAxis(false, true); // make key axis range scroll with the data
 
   replot();
+
+  m_blackBar->move((m_currentGraphPos * 7.2) + 62, 0);
+  m_currentGraphPos++;
 }
