@@ -1,9 +1,9 @@
 #include "initializer.h"
-#include "GUI/Components/originalview.h"
-#include "GUI/Components/alternativeview.h"
-#include "GUI/Components/alternativeview2.h"
+#include "GUI/originalview.h"
+#include "GUI/alternativeview.h"
+#include "GUI/alternativeview2.h"
 #include "mainwindow.h"
-#include "GUI/Components/monitor.h"
+#include "GUI/monitor.h"
 
 Initializer::Initializer(QObject *parent) : QObject(parent)
 {

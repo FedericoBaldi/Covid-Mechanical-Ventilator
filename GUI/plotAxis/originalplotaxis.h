@@ -25,7 +25,7 @@
 
 #pragma once
 #include <QWidget>
-#include "GUI/Components/qcustomplot.h"
+#include "GUI/qcustomplot.h"
 #include "axistag.h"
 #include "dataadapter.h"
 

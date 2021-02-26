@@ -27,7 +27,7 @@
 #define PLOTAXIS_H
 
 #include <QWidget>
-#include "GUI/Components/qcustomplot.h"
+#include "GUI/qcustomplot.h"
 #include "axistag.h"
 #include "dataadapter.h"
 #include "viewif.h"
