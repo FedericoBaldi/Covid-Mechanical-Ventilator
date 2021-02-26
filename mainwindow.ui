@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>550</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>MVMC</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(85, 87, 83);</string>
@@ -35,7 +35,7 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>410</y>
+      <y>380</y>
       <width>100</width>
       <height>100</height>
      </rect>
@@ -59,7 +59,7 @@ color: rgb(32, 74, 135);</string>
     <property name="geometry">
      <rect>
       <x>510</x>
-      <y>410</y>
+      <y>380</y>
       <width>100</width>
       <height>100</height>
      </rect>
