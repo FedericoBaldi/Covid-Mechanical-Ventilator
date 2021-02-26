@@ -21,7 +21,6 @@ private:
 
 signals:
   void dataChanged();
-  void newData(QList<QPair<QString, float>> dataList);
 
 public slots:
   void setupDataHandler();
